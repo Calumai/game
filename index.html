@@ -3,8 +3,8 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="阿美語聽力排序遊戲原型">
-    <title>聽見阿美語</title>
+    <meta name="description" content="桌遊原地重生的阿美語數位延伸關卡">
+    <title>原地重生：母語巢最後關卡</title>
     <link rel="stylesheet" href="./styles.css">
   </head>
   <body>
@@ -27,6 +27,18 @@
           <div class="cloud cloud-b"></div>
           <div class="hill hill-back"></div>
           <div class="hill hill-front"></div>
+          <div class="board board-story">
+            <span class="card clan-card">族群</span>
+            <span class="card build-card">建築</span>
+            <span class="card craft-card">技藝</span>
+            <span class="card culture-card">文化</span>
+            <span class="dice">6</span>
+          </div>
+          <div class="token token-wood"></div>
+          <div class="token token-bamboo"></div>
+          <div class="token token-stone"></div>
+          <div class="token token-grass"></div>
+          <div class="token token-vine"></div>
           <div class="speaker speaker-left">
             <div class="head"></div>
             <div class="body"></div>
@@ -37,8 +49,8 @@
           </div>
         </div>
         <div class="dialog-card">
-          <div class="speaker-tag">朋友</div>
-          <p id="storyLine">Nga'ay ho! 今天部落廣場有練習，別只顧著看海，快來一起聽阿美語吧！</p>
+          <div class="speaker-tag">母語巢</div>
+          <p id="storyLine">神祕盒子再次發出古謠。桌上的族群卡、建築卡、技藝卡和文化卡一起亮了起來。</p>
         </div>
         <div class="actions">
           <button id="nextStoryBtn" class="primary-btn" type="button">繼續</button>
@@ -54,34 +66,34 @@
           <div class="circle-mark mark-b"></div>
         </div>
         <div class="rules-panel">
-          <p class="lede">海風和歌聲把朋友的話吹散了。請仔細聽阿美語音檔，依照提示順序擊落正確詞語，幫他們把句子接回來。</p>
+          <p class="lede">這是桌遊「原地重生 傳奇領袖」的數位延伸關卡。你們已經完成部落重建，現在要聽懂散落的阿美語詞句，開啟母語巢通往現代的隧道。</p>
           <div class="rule-list">
             <div class="rule-row">
               <strong>題數</strong>
-              <span>共有 5 道關卡，總分最高 100 分。</span>
+              <span>共有 5 道最後關卡，總分最高 100 分。</span>
             </div>
             <div class="rule-row">
               <strong>第一階段</strong>
-              <span>依照聽到的順序擊落飛來的詞語。</span>
+              <span>依照聽到的順序擊落飛來的族語詞語，修復文化卡上的句子。</span>
             </div>
             <div class="notice-row">
               <span aria-hidden="true">!</span>
-              <p>若連續失誤 5 次，該題會失敗。</p>
+              <p>若連續失誤 5 次，古謠會散開，該題挑戰失敗。</p>
             </div>
             <div class="rule-row">
               <strong>第二階段</strong>
-              <span>完成後看羅馬字與華語意思，確認自己聽懂了什麼。</span>
+              <span>完成後看羅馬字與華語意思，確認文化、技藝與生活詞句。</span>
             </div>
             <div class="rule-row">
               <strong>排名</strong>
               <span>分數越高越前面；同分時，用時越短越前面。</span>
             </div>
           </div>
-          <h1>聽見阿美語</h1>
+          <h1>原地重生：母語巢最後關卡</h1>
           <div class="dialects" aria-label="學習別選擇">
-            <button class="dialect selected" type="button">初級日常</button>
-            <button class="dialect" type="button">部落生活</button>
-            <button class="dialect" type="button">進階句型</button>
+            <button class="dialect selected" type="button">阿美族</button>
+            <button class="dialect" type="button">建築線索</button>
+            <button class="dialect" type="button">文化技藝</button>
           </div>
           <button id="startBtn" class="start-btn" type="button">開始遊戲</button>
         </div>
@@ -102,6 +114,16 @@
         <div class="game-scene" aria-hidden="true">
           <div class="coast"></div>
           <div class="field"></div>
+          <div class="resource-shelf">
+            <span>木頭</span>
+            <span>竹子</span>
+            <span>石頭</span>
+            <span>茅草</span>
+            <span>藤</span>
+          </div>
+          <div class="gate">
+            <span></span>
+          </div>
           <div class="game-person left-person"></div>
           <div class="game-person right-person"></div>
         </div>
@@ -114,7 +136,7 @@
         <div class="word-lane" id="wordLane"></div>
 
         <button id="hitPanel" class="hit-panel" type="button">
-          <strong>根據順序擊落詞語！</strong>
+          <strong>修復文化卡詞序！</strong>
           <span class="hit-controls">
             <span>打擊</span>
             <span>加速</span>
