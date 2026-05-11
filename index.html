@@ -1,0 +1,163 @@
+<!doctype html>
+<html lang="zh-TW">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="阿美語聽力排序遊戲原型">
+    <title>聽見阿美語</title>
+    <link rel="stylesheet" href="./styles.css">
+  </head>
+  <body>
+    <main id="app" class="app">
+      <div class="topbar">
+        <button id="backBtn" class="ghost-btn" type="button" aria-label="返回列表">
+          <span aria-hidden="true">‹</span>
+          <span>返回列表</span>
+        </button>
+        <button id="soundBtn" class="pill-btn" type="button" aria-pressed="true">
+          <span id="soundIcon" aria-hidden="true">♪</span>
+          <span>音效</span>
+        </button>
+      </div>
+
+      <section id="storyScreen" class="screen screen-active stage story-stage">
+        <div class="scene scene-story" aria-hidden="true">
+          <div class="sun"></div>
+          <div class="cloud cloud-a"></div>
+          <div class="cloud cloud-b"></div>
+          <div class="hill hill-back"></div>
+          <div class="hill hill-front"></div>
+          <div class="speaker speaker-left">
+            <div class="head"></div>
+            <div class="body"></div>
+          </div>
+          <div class="speaker speaker-right">
+            <div class="head"></div>
+            <div class="body"></div>
+          </div>
+        </div>
+        <div class="dialog-card">
+          <div class="speaker-tag">朋友</div>
+          <p id="storyLine">Nga'ay ho! 今天部落廣場有練習，別只顧著看海，快來一起聽阿美語吧！</p>
+        </div>
+        <div class="actions">
+          <button id="nextStoryBtn" class="primary-btn" type="button">繼續</button>
+          <button id="skipStoryBtn" class="text-btn" type="button">跳過故事情境</button>
+        </div>
+      </section>
+
+      <section id="rulesScreen" class="screen stage rules-stage">
+        <div class="scene scene-rules" aria-hidden="true">
+          <div class="wave wave-a"></div>
+          <div class="wave wave-b"></div>
+          <div class="circle-mark mark-a"></div>
+          <div class="circle-mark mark-b"></div>
+        </div>
+        <div class="rules-panel">
+          <p class="lede">海風和歌聲把朋友的話吹散了。請仔細聽阿美語音檔，依照提示順序擊落正確詞語，幫他們把句子接回來。</p>
+          <div class="rule-list">
+            <div class="rule-row">
+              <strong>題數</strong>
+              <span>共有 5 道關卡，總分最高 100 分。</span>
+            </div>
+            <div class="rule-row">
+              <strong>第一階段</strong>
+              <span>依照聽到的順序擊落飛來的詞語。</span>
+            </div>
+            <div class="notice-row">
+              <span aria-hidden="true">!</span>
+              <p>若連續失誤 5 次，該題會失敗。</p>
+            </div>
+            <div class="rule-row">
+              <strong>第二階段</strong>
+              <span>完成後看羅馬字與華語意思，確認自己聽懂了什麼。</span>
+            </div>
+            <div class="rule-row">
+              <strong>排名</strong>
+              <span>分數越高越前面；同分時，用時越短越前面。</span>
+            </div>
+          </div>
+          <h1>聽見阿美語</h1>
+          <div class="dialects" aria-label="學習別選擇">
+            <button class="dialect selected" type="button">初級日常</button>
+            <button class="dialect" type="button">部落生活</button>
+            <button class="dialect" type="button">進階句型</button>
+          </div>
+          <button id="startBtn" class="start-btn" type="button">開始遊戲</button>
+        </div>
+      </section>
+
+      <section id="gameScreen" class="screen stage game-stage">
+        <div class="game-hud">
+          <p id="questionLabel">題目 1/5</p>
+          <div class="progress-track" aria-label="題目進度">
+            <div id="progressFill" class="progress-fill"></div>
+          </div>
+          <div class="timer">
+            <span aria-hidden="true">◷</span>
+            <span id="timerText">00:00:00</span>
+          </div>
+        </div>
+
+        <div class="game-scene" aria-hidden="true">
+          <div class="coast"></div>
+          <div class="field"></div>
+          <div class="game-person left-person"></div>
+          <div class="game-person right-person"></div>
+        </div>
+
+        <div class="sentence-bubble">
+          <button id="playPromptBtn" class="audio-btn" type="button" aria-label="播放題目">♪</button>
+          <div id="answerSlots" class="answer-slots"></div>
+        </div>
+
+        <div class="word-lane" id="wordLane"></div>
+
+        <button id="hitPanel" class="hit-panel" type="button">
+          <strong>根據順序擊落詞語！</strong>
+          <span class="hit-controls">
+            <span>打擊</span>
+            <span>加速</span>
+          </span>
+        </button>
+      </section>
+
+      <section id="resultScreen" class="screen stage result-stage">
+        <div class="result-card">
+          <p id="resultTitle">成績計算中...</p>
+          <div class="score-ring">
+            <span id="scoreText">0</span>
+            <small>分</small>
+          </div>
+          <p id="resultMeta">完成 0 題，用時 00:00:00</p>
+          <div class="result-actions">
+            <button id="retryBtn" class="primary-btn" type="button">重玩一次</button>
+            <button id="answersBtn" class="text-btn" type="button">看答案</button>
+          </div>
+        </div>
+        <div class="rank-card">
+          <h2>排行榜</h2>
+          <div class="rank-head">
+            <span>排名</span>
+            <span>學員</span>
+            <span>分數</span>
+            <span>計時</span>
+          </div>
+          <div id="rankList" class="rank-list"></div>
+          <p class="rank-note">目前共 <strong>77</strong> 人參加，共玩 <strong>432</strong> 次</p>
+        </div>
+      </section>
+
+      <section id="answersScreen" class="screen stage answers-stage">
+        <div class="answers-card">
+          <div class="answers-header">
+            <h2>答案</h2>
+            <button id="closeAnswersBtn" class="ghost-btn" type="button">返回成績</button>
+          </div>
+          <div id="answersList" class="answers-list"></div>
+        </div>
+      </section>
+    </main>
+    <script src="./script.js"></script>
+  </body>
+</html>
