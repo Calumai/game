@@ -1,30 +1,38 @@
-const questions = [
+const fallbackQuestions = [
   {
     words: ["Nga'ay", "ho", "!"],
     roman: ["Nga'ay", "ho", "!"],
     zh: "你好！",
+    audio: "./assets/audio/q1.mp3",
   },
   {
     words: ["O", "wawa", "ko", "kiso", "?"],
     roman: ["O", "wawa", "ko", "kiso", "?"],
     zh: "你是孩子嗎？",
+    audio: "./assets/audio/q2.mp3",
   },
   {
     words: ["Mita", "ko", "loma'", "ako", "."],
     roman: ["Mita", "ko", "loma'", "ako", "."],
     zh: "我看見我的家。",
+    audio: "./assets/audio/q3.mp3",
   },
   {
     words: ["Maolah", "ako", "to", "tayal", "."],
     roman: ["Maolah", "ako", "to", "tayal", "."],
     zh: "我喜歡工作/活動。",
+    audio: "./assets/audio/q4.mp3",
   },
   {
     words: ["Tengil", "to", "Pangcah", "a", "kiso", "."],
     roman: ["Tengil", "to", "Pangcah", "a", "kiso", "."],
     zh: "請你聽阿美語。",
+    audio: "./assets/audio/q5.mp3",
   },
 ];
+
+let questions = [...fallbackQuestions];
+let currentAudio = null;
 
 const ranks = [
   ["1", "Lisin", 100, "00:01:39.222"],
@@ -102,6 +110,21 @@ function speak(text) {
   window.speechSynthesis.speak(utterance);
 }
 
+function playQuestionAudio(question) {
+  if (!soundOn) return;
+  if (currentAudio) {
+    currentAudio.pause();
+    currentAudio.currentTime = 0;
+  }
+  window.speechSynthesis?.cancel();
+  if (question.audio) {
+    currentAudio = new Audio(question.audio);
+    currentAudio.play().catch(() => speak(question.words.join(" ")));
+    return;
+  }
+  speak(question.words.join(" "));
+}
+
 function tickSound(type = "ok") {
   if (!soundOn) return;
   const AudioContext = window.AudioContext || window.webkitAudioContext;
@@ -162,7 +185,7 @@ function loadQuestion() {
   answerSlots.innerHTML = question.words
     .map((word, index) => `<div class="slot empty" data-index="${index}">${word}</div>`)
     .join("");
-  speak(question.words.join(" "));
+  playQuestionAudio(question);
   spawnWords();
   spawnId = window.setInterval(spawnWords, 1350);
   moveId = window.setInterval(moveWords, 20);
@@ -327,7 +350,7 @@ answersBtn.addEventListener("click", () => {
   showScreen("answers");
 });
 closeAnswersBtn.addEventListener("click", () => showScreen("result"));
-playPromptBtn.addEventListener("click", () => speak(questions[currentQuestion].words.join(" ")));
+playPromptBtn.addEventListener("click", () => playQuestionAudio(questions[currentQuestion]));
 hitPanel.addEventListener("click", hitNearest);
 
 soundBtn.addEventListener("click", () => {
@@ -353,3 +376,24 @@ document.querySelectorAll(".dialect").forEach((button) => {
 
 document.querySelector("#backBtn").addEventListener("click", () => showScreen("rules"));
 renderRanks(0, "00:00:00.000");
+
+async function loadQuestions() {
+  try {
+    const response = await fetch("./data/questions.json", { cache: "no-store" });
+    if (!response.ok) throw new Error("questions.json not found");
+    const loadedQuestions = await response.json();
+    if (!Array.isArray(loadedQuestions) || loadedQuestions.length === 0) {
+      throw new Error("questions.json is empty");
+    }
+    questions = loadedQuestions.map((item) => ({
+      words: item.words || [],
+      roman: item.roman || item.words || [],
+      zh: item.zh || "",
+      audio: item.audio || "",
+    })).filter((item) => item.words.length > 0);
+  } catch (error) {
+    questions = [...fallbackQuestions];
+  }
+}
+
+loadQuestions();
