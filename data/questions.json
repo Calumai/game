@@ -1,0 +1,32 @@
+[
+  {
+    "words": ["Nga'ay", "ho", "!"],
+    "roman": ["Nga'ay", "ho", "!"],
+    "zh": "你好！",
+    "audio": "./assets/audio/q1.mp3"
+  },
+  {
+    "words": ["O", "wawa", "ko", "kiso", "?"],
+    "roman": ["O", "wawa", "ko", "kiso", "?"],
+    "zh": "你是孩子嗎？",
+    "audio": "./assets/audio/q2.mp3"
+  },
+  {
+    "words": ["Mita", "ko", "loma'", "ako", "."],
+    "roman": ["Mita", "ko", "loma'", "ako", "."],
+    "zh": "我看見我的家。",
+    "audio": "./assets/audio/q3.mp3"
+  },
+  {
+    "words": ["Maolah", "ako", "to", "tayal", "."],
+    "roman": ["Maolah", "ako", "to", "tayal", "."],
+    "zh": "我喜歡工作/活動。",
+    "audio": "./assets/audio/q4.mp3"
+  },
+  {
+    "words": ["Tengil", "to", "Pangcah", "a", "kiso", "."],
+    "roman": ["Tengil", "to", "Pangcah", "a", "kiso", "."],
+    "zh": "請你聽阿美語。",
+    "audio": "./assets/audio/q5.mp3"
+  }
+]
